@@ -1,0 +1,16 @@
+function more(a){
+    return a+1
+}
+
+
+function less(s){
+    return s-1
+}
+
+function add(a,b){
+    return a+b
+}
+
+function add(a,b){
+    return a-b
+}
