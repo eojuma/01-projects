@@ -1,8 +1,8 @@
-const person = {
-    name: "Rick",
-    age: 77,
-    country: "US",
-  };
+// const person = {
+//     name: "Rick",
+//     age: 77,
+//     country: "US",
+//   };
   
   var clone1;
   var clone2;
