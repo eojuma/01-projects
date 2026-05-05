@@ -1,18 +1,19 @@
-const escapeStr = "```\\\/\"\'"
+const escapeStr = "`\\\\/\"'";
 
-const arr  = Object.freeze([4,'2'])
+const arr = Object.freeze([4, '2']);
 
-const obj =Object.freeze( {
-    str:"joel",
-    num:4,
-    bool:true,
-    undef:undefined,
-})
+const obj = Object.freeze({
+  str: "joel",
+  num: 4,
+  bool: true,
+  undef: undefined,
+});
 
-const nestedObj = Object.freeze({
-    arr:[4,undefined,'2'],
-    obj:{str:"jane",num:9,bool:true,},
-})
+const nestedInnerObj = Object.freeze({
+  str: "jane",
+  num: 9,
+  bool: true,
+});
 
 const nestedInnerArr = Object.freeze([4, undefined, '2']);
 
