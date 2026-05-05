@@ -9,7 +9,14 @@ const obj =Object.freeze( {
     undef:undefined,
 })
 
-const nested = Object.freeze({
+const nestedObj = Object.freeze({
     arr:[4,undefined,'2'],
     obj:{str:"jane",num:9,bool:true,},
 })
+
+const nestedInnerArr = Object.freeze([4, undefined, '2']);
+
+const nested = Object.freeze({
+  arr: nestedInnerArr,
+  obj: nestedInnerObj,
+});
