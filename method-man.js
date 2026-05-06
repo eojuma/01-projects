@@ -3,21 +3,21 @@ function words(s) {
 }
 
 function sentence(s) {
-  together = s.join(" ");
+  const together = s.join(" ");
   return together;
 }
 
 function yell(s) {
-  upper = s.toUpperCase();
+  const upper = s.toUpperCase();
   return upper;
 }
 
 function whisper(s) {
-  lower = s.toLowerCase();
+ const lower = s.toLowerCase();
   return `*${lower}*`;
 }
 
 function capitalize(s) {
-  transformed = s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  const transformed = s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
   return transformed;
 }
