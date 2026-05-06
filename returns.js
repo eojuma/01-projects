@@ -1,7 +1,7 @@
-function id(s){
-    return s;
+function id(s) {
+  return s;
 }
 
-function getLength(s){
-return s.length;
+function getLength(s) {
+  return s.length;
 }

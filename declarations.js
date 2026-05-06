@@ -1,6 +1,6 @@
 const escapeStr = "`\\\\/\"'";
 
-const arr = Object.freeze([4, '2']);
+const arr = Object.freeze([4, "2"]);
 
 const obj = Object.freeze({
   str: "joel",
@@ -15,7 +15,7 @@ const nestedInnerObj = Object.freeze({
   bool: true,
 });
 
-const nestedInnerArr = Object.freeze([4, undefined, '2']);
+const nestedInnerArr = Object.freeze([4, undefined, "2"]);
 
 const nested = Object.freeze({
   arr: nestedInnerArr,

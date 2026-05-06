@@ -1,2 +1,2 @@
-var smalls=-Infinity;
-var biggie=Infinity;
+var smalls = -Infinity;
+var biggie = Infinity;

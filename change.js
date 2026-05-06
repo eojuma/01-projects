@@ -5,14 +5,12 @@ const sourceObject = {
   log: console.log,
 };
 
-
-function get(key){
-    return sourceObject[key];
+function get(key) {
+  return sourceObject[key];
 }
 
-
-function set(keys,values){
-    return sourceObject[keys]=values;
+function set(keys, values) {
+  return (sourceObject[keys] = values);
 }
 
 // console.log(get("bool"))
