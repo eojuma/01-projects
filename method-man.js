@@ -13,7 +13,7 @@ function yell(s) {
 }
 
 function whisper(s) {
- const lower = s.toLowerCase();
+  const lower = s.toLowerCase();
   return `*${lower}*`;
 }
 
