@@ -1,6 +1,5 @@
 function words(s) {
-  splited = s.split(" ");
-  return splited;
+  return s.split(" ");
 }
 
 function sentence(s) {
