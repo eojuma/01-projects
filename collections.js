@@ -3,7 +3,7 @@ function arrToSet(val) {
 }
 
 function arrToStr(val) {
-  return val.join("");
+  return val.join('');
 }
 
 function setToArr(val) {
@@ -11,7 +11,7 @@ function setToArr(val) {
 }
 
 function setToStr(val) {
-  return [...val].join("");
+  return [...val].join('');
 }
 
 function strToArr(val) {
@@ -27,7 +27,7 @@ function mapToObj(val) {
 }
 
 function objToArr(val) {
-  return Object.entries(val);
+  return Object.values(val);
 }
 
 function objToMap(val) {
@@ -35,15 +35,15 @@ function objToMap(val) {
 }
 
 function arrToObj(val) {
-  return Object.fromEntries(val); 
+  return { ...val };
 }
 
 function strToObj(val) {
-  return JSON.parse(val); 
+  return { ...val };
 }
 
 function superTypeOf(val) {
-  if (val === null) return "null";
-  const typeTag = Object.prototype.toString.call(val);
-  return typeTag.slice(8, -1); // Returns 'Array', 'Set', etc.
+  if (val === null) return 'null';
+  if (val === undefined) return 'undefined';
+  return Object.prototype.toString.call(val).slice(8, -1);
 }
