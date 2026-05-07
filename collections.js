@@ -11,7 +11,7 @@ function setToArr(val) {
 }
 
 function setToStr(val) {
-  return val.toString();
+  return [...val].join("");
 }
 
 function strToArr(val) {
@@ -19,8 +19,9 @@ function strToArr(val) {
 }
 
 function strToSet(val) {
-  return new Set(val).join("");
+  return new Set(val);
 }
+
 function mapToObj(val) {
   return Object.fromEntries(val);
 }
@@ -29,23 +30,20 @@ function objToArr(val) {
   return Object.entries(val);
 }
 
-function objToMap(arr) {
+function objToMap(val) {
   return new Map(Object.entries(val));
 }
 
-function arrToObj(arr) {
-  return Object.fromEntries(val);
+function arrToObj(val) {
+  return Object.fromEntries(val); 
 }
 
-function strToObj(arr) {
-  return JSON.parse(val);
+function strToObj(val) {
+  return JSON.parse(val); 
 }
 
-function superTypeOf(arr) {
-  if (val === null) {
-    return "null";
-  }
-
+function superTypeOf(val) {
+  if (val === null) return "null";
   const typeTag = Object.prototype.toString.call(val);
-  return typeTag.slice(8, -1);
+  return typeTag.slice(8, -1); // Returns 'Array', 'Set', etc.
 }
