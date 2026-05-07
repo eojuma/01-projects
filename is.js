@@ -4,8 +4,8 @@ is.num = function (n) {
 };
 
 // is.nan: Uses the built-in Number method
-is.nan = function (a) {
-  return Number.isNaN(a);
+is.nan = function (n) {
+  return Number.isNaN(n);
 };
 
 // is.str: Check for string type
