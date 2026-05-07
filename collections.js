@@ -19,7 +19,7 @@ function strToArr(val) {
 }
 
 function strToSet(val) {
-  return new Set(val);
+  return new Set(val).join("");
 }
 function mapToObj(val) {
   return Object.fromEntries(val);
