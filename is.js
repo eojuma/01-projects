@@ -1,6 +1,6 @@
 // is.num: Check if it's a number AND ensure it's not NaN
 is.num = function (n) {
-  return typeof n === "number" 
+  return typeof n === "number" && !Number.isNaN(n);
 };
 
 // is.nan: Uses the built-in Number method
@@ -35,9 +35,7 @@ is.arr = function (a) {
 
 // is.obj: Returns true if it's an object OR null (as per your prompt instructions)
 is.obj = function (o) {
-  return (
-    (o !== null && typeof o === "object" && !Array.isArray(o)) || o === null
-  );
+  return typeof o === 'object' && o !== null && !Array.isArray(o);
 };
 
 // is.fun: Check for function type
