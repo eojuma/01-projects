@@ -9,7 +9,7 @@ function sign(n) {
 }
 
 function sameSign(n, m) {
-  if ((n > 0 && m > 0) || (n < 0 && m < 0) || (m==0 && n==0)) {
+  if ((n > 0 && m > 0) || (n < 0 && m < 0) || (m == 0 && n == 0)) {
     return true;
   }
   return false;
