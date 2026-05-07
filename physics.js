@@ -1,6 +1,6 @@
 function getAcceleration(accel) {
   if (accel.f && accel.m) {
-    return force / mass;
+    return f / m;
   } else if (accel.Δv && accel.Δt) {
     return Δv / Δt;
   } else if (accel.d && accel.t) {
