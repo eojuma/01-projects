@@ -1,6 +1,6 @@
 // is.num: Check if it's a number AND ensure it's not NaN
 is.num = function (n) {
-  return typeof n === "number" && !Number.isNaN(n);
+  return typeof n === "number" 
 };
 
 // is.nan: Uses the built-in Number method
