@@ -1,61 +1,56 @@
-// is.is = {
-is.num = function numbered(n) {
-  if (typeof n === "number") {
-    return true;
-  }
-  return false;
+// is.num: Check if it's a number AND ensure it's not NaN
+is.num = function (n) {
+  return typeof n === "number" && !Number.isNaN(n);
 };
 
+// is.nan: Uses the built-in Number method
 is.nan = function (a) {
   return Number.isNaN(a);
 };
 
-is.str = function str(s) {
-  if (typeof s === "string") {
-    return true;
-  }
-  return false;
+// is.str: Check for string type
+is.str = function (s) {
+  return typeof s === "string";
 };
-is.bool = function bool(b) {
-  if (typeof b === "boolean") {
-    return true;
-  }
-  return false;
+
+// is.bool: Check for boolean type
+is.bool = function (b) {
+  return typeof b === "boolean";
 };
-is.undef = function undef(u) {
-  if (typeof u === "undefined") {
-    return true;
-  }
-  return false;
+
+// is.undef: Check for undefined type
+is.undef = function (u) {
+  return typeof u === "undefined";
 };
-is.arr = function def(d) {
-  if (typeof d === "undefined") {
-    return false;
-  }
-  return true;
+
+// is.def: Simply the opposite of is.undef
+is.def = function (d) {
+  return typeof d !== "undefined";
 };
-is.obj = function object(o) {
-  if (typeof o === "null") {
-    return true;
-  }
-  return false;
+
+// is.arr: Uses the Array-specific check
+is.arr = function (a) {
+  return Array.isArray(a);
 };
-is.fun = function fun(f) {
-  if (typeof f === "function") {
-    return true;
-  }
-  return false;
+
+// is.obj: Returns true if it's an object OR null (as per your prompt instructions)
+is.obj = function (o) {
+  return (
+    (o !== null && typeof o === "object" && !Array.isArray(o)) || o === null
+  );
 };
-is.truthy = function truth(t) {
-  if (typeof t === "truthy") {
-    return true;
-  }
-  return false;
+
+// is.fun: Check for function type
+is.fun = function (f) {
+  return typeof f === "function";
 };
-is.falsy = function fals(f) {
-  if (typeof f === "falsy") {
-    return true;
-  }
-  return false;
+
+// is.truthy: Force the value into a boolean context
+is.truthy = function (t) {
+  return !!t;
 };
-// };
+
+// is.falsy: Check if the value is not truthy
+is.falsy = function (f) {
+  return !f;
+};
