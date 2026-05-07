@@ -3,7 +3,7 @@ function arrToSet(val) {
 }
 
 function arrToStr(val) {
-  return val.join(" ");
+  return val.join("");
 }
 
 function setToArr(val) {
