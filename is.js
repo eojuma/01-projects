@@ -1,56 +1,56 @@
 // is.num: The test explicitly expects NaN to return true.
-is.num = (n) => typeof n === 'number';
+is.num = (n) => typeof n === "number";
 
 // is.nan: Returns true if the value is NaN.
 is.nan = (n) => Number.isNaN(n);
 
 // is.str: Returns true if the value is a string.
-is.str = (s) => typeof s === 'string';
+is.str = (s) => typeof s === "string";
 
 // is.bool: Returns true if the value is a boolean.
-is.bool = (b) => typeof b === 'boolean';
+is.bool = (b) => typeof b === "boolean";
 
 // is.undef: Returns true if the value is undefined.
-is.undef = (u) => typeof u === 'undefined';
+is.undef = (u) => typeof u === "undefined";
 
 // is.def: Returns true if the value is defined.
-is.def = (d) => typeof d !== 'undefined';
+is.def = (d) => typeof d !== "undefined";
 
 // is.arr: Returns true if the value is an array.
 is.arr = (a) => Array.isArray(a);
 
 // is.obj: The test expects false for null and false for arrays.
-is.obj = (o) => typeof o === 'object' && o !== null && !Array.isArray(o);
+is.obj = (o) => typeof o === "object" && o !== null && !Array.isArray(o);
 
 // is.fun: Returns true if the value is a function.
-is.fun = (f) => typeof f === 'function';// 1. is.num: Must exclude NaN based on instructions 
+is.fun = (f) => typeof f === "function"; // 1. is.num: Must exclude NaN based on instructions
 // (If test #1 failed previously, it was likely due to missing !Number.isNaN)
-is.num = (n) => typeof n === 'number' && !Number.isNaN(n);
+is.num = (n) => typeof n === "number" && !Number.isNaN(n);
 
 // 2. is.nan: True only for NaN
 is.nan = (n) => Number.isNaN(n);
 
 // 3. is.str: True for strings
-is.str = (s) => typeof s === 'string';
+is.str = (s) => typeof s === "string";
 
 // 4. is.bool: True for booleans
-is.bool = (b) => typeof b === 'boolean';
+is.bool = (b) => typeof b === "boolean";
 
 // 5. is.undef: True for undefined
-is.undef = (u) => typeof u === 'undefined';
+is.undef = (u) => typeof u === "undefined";
 
 // 6. is.def: True if NOT undefined
-is.def = (d) => typeof d !== 'undefined';
+is.def = (d) => typeof d !== "undefined";
 
 // 7. is.arr: Uses the Array-specific check
 is.arr = (a) => Array.isArray(a);
 
 // 8. is.obj: The fix for Test #7
 // We check for 'object', exclude null, and exclude arrays.
-is.obj = (o) => typeof o === 'object' && o !== null && !Array.isArray(o);
+is.obj = (o) => typeof o === "object" && o !== null && !Array.isArray(o);
 
 // 9. is.fun: True for functions
-is.fun = (f) => typeof f === 'function';
+is.fun = (f) => typeof f === "function";
 
 // 10. is.truthy: Simple boolean coercion
 is.truthy = (t) => !!t;
