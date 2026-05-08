@@ -7,7 +7,7 @@ function indexOf(arr, value, starts) {
   for (let i = start; i < arr.length-1; i++) {
     if (arr[i] === value) {
       return i;
-      break;
+    //   break;
     }
   }
   return -1;
@@ -17,7 +17,7 @@ function lastIndexOf(arr, value) {
   for (let j = arr.length; j >= 0; j--) {
     if (arr[j] === value) {
       return j;
-      break;
+    //   break;
     }
   }
   return -1;
