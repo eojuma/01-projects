@@ -14,7 +14,7 @@ function indexOf(arr, value, starts) {
 }
 
 function lastIndexOf(arr, value,starts) {
-let (start===starts);
+let start=starts;
     if (start===undefined){
         start=arr.length-1;
     }
