@@ -15,10 +15,10 @@ function keepFirst(s){
     return s.slice(0,2)
 }
 function keepLast(s){
-    return s.slice(-3,-1)
+    return s.slice(-2)
 }
 
 function keepFirstLast(s){
-    return s.slice(2)+s.slice(-2)
+    return s.slice(0,2)+s.slice(-2)
 }
 
