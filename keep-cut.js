@@ -10,6 +10,6 @@ function cutLast(s){
 
 
 function keepFirstLast(s){
-    return s.slice(0,2) +s.slice(s.length-2)
+    return s.slice(2,-2)
 }
 
