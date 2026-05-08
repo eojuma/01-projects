@@ -19,28 +19,50 @@ function multiply(a, b) {
 
 function divide(a, b) {
   let count = 0;
-  if (b === 0) {
-    return "undefined";
-  }
 
-  let isNegative = a < 0 && b < 0;
-
-  if (a < 0) {
+  // Case: Both negative (Result should be positive)
+  if (a < 0 && b < 0) {
     a = -a;
-  }
-
-  if (b < 0) {
     b = -b;
+    while (a >= b) {
+      a -= b;
+      count++;
+    }
+    return count; // Correct: - / - = +
   }
 
-  while (a >= b) {
-    a -= b;
-    count++;
+  // Case: a is negative, b is positive (Result should be negative)
+  if (a < 0 && b > 0) {
+    a = -a;
+    while (a >= b) {
+      a -= b;
+      count++;
+    }
+    return -count; // FIX: - / + = -
   }
 
-  if (isNegative) {
-    return -count;
+  // Case: b is negative, a is positive (Result should be negative)
+  if (b < 0 && a > 0) {
+    b = -b;
+    while (a >= b) {
+      a -= b;
+      count++;
+    }
+    return -count; // FIX: + / - = -
   }
+
+  // Case: Both positive (Result should be positive)
+  if (a > 0 && b > 0) {
+    while (a >= b) {
+      a -= b;
+      count++;
+    }
+    return count; // FIX: Added return here to avoid the "0" trap at the end
+  }
+
+  // Handle zero
+  if (a === 0) return 0;
+
   return count;
 }
 
@@ -67,7 +89,3 @@ function modulo(a, b) {
   }
   return a;
 }
-
-console.log(multiply(-8, 8));
-console.log(divide(12, 2));
-console.log(modulo(0, 0));
