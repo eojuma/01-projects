@@ -1,11 +1,11 @@
 
 
 function cutFirst(s){
-    return s.slice(2)
+    return s.slice(1)
 }
 
 function cutLast(s){
-    return s.slice(0,s.length-2)
+    return s.slice(0,s.length-1)
 }
 
 function cutFirstLast(s){
@@ -19,6 +19,6 @@ function keepLast(s){
 }
 
 function keepFirstLast(s){
-    return s.slice(2,-2)
+    return s.slice(1,-2)
 }
 
