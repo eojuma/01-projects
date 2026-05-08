@@ -1,7 +1,7 @@
 
 
 function cutFirst(s){
-    return s.slice(1)
+    return s.slice(0)
 }
 
 function cutLast(s){
