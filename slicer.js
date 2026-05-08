@@ -8,7 +8,7 @@ function slice(input, starts, ends) {
   if (end === undefined) {
     end = input.length;
   }
-if (start < 0) {
+  if (start < 0) {
     start = input.length + start;
   }
   if (end < 0) {
@@ -21,7 +21,7 @@ if (start < 0) {
   }
 
   if (typeof input === "string") {
-   return result.join("");
+    return result.join("");
   }
   return result;
 }
