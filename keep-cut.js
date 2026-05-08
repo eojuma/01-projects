@@ -7,6 +7,10 @@ function cutFirst(s){
 function cutLast(s){
     return s.slice(0,s.length-2)
 }
+
+function cutFirstLast(s){
+    return s.slice(1,s.length-1)
+}
 function keepFirst(s){
     return s.slice(0,1)
 }
