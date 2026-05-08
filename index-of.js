@@ -1,10 +1,10 @@
 function indexOf(arr, value, starts) {
-  let start = 0;
+  let start = starts;
   if (start === "undefined") {
-    start = starts;
+    start = 0;
   }
 
-  for (let i = start; i < arr.length; i++) {
+  for (let i = start; i < arr.length-1; i++) {
     if (arr[i] === value) {
       return i;
       break;
