@@ -21,7 +21,7 @@ function lastIndexOf(arr, value, starts) {
   if (start >= arr.length) {
     start = arr.length - 1;
   }
-  for (let j = arr.length; j >= 0; j--) {
+  for (let j = start; j >= 0; j--) {
     if (arr[j] === value) {
       return j;
       break;
