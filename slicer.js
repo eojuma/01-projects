@@ -8,7 +8,12 @@ function slice(input, starts, ends) {
   if (end === undefined) {
     end = input.length;
   }
-
+if (start < 0) {
+    start = input.length + start;
+  }
+  if (end < 0) {
+    end = input.length + end;
+  }
   let result = [];
 
   for (let i = start; i < end; i++) {
