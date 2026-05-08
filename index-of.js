@@ -3,7 +3,7 @@ function indexOf(arr, value, starts) {
   if (start === undefined) {
     start = 0;
   }
-
+  if (start < 0) start = 0;
   for (let i = start; i < arr.length; i++) {
     if (arr[i] === value) {
       return i;
@@ -13,11 +13,14 @@ function indexOf(arr, value, starts) {
   return -1;
 }
 
-function lastIndexOf(arr, value,starts) {
-let start=starts;
-    if (start===undefined){
-        start=arr.length;
-    }
+function lastIndexOf(arr, value, starts) {
+  let start = starts;
+  if (start === undefined) {
+    start = arr.length;
+  }
+  if (start >= arr.length) {
+    start = arr.length - 1;
+  }
   for (let j = arr.length; j >= 0; j--) {
     if (arr[j] === value) {
       return j;
