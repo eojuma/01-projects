@@ -4,7 +4,7 @@ function indexOf(arr, value, starts) {
     start = 0;
   }
 
-  for (let i = start; i < arr.length-1; i++) {
+  for (let i = start; i < arr.length; i++) {
     if (arr[i] === value) {
       return i;
     //   break;
