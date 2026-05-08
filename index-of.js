@@ -1,6 +1,6 @@
 function indexOf(arr, value, starts) {
   let start = starts;
-  if (start === "undefined") {
+  if (start === undefined) {
     start = 0;
   }
 
