@@ -3,13 +3,13 @@ function reverse(input){
 
 
     for (let i=input.length-1;i>=0;i--){
-        return result.push()
+     result.push(input[i]);
     }
 
-    if (typeof(input===string)){
-        let word =""
-        for (let j=input.length-1;j>=0;j--){
-            return word+=input[j]
-        }
+    if (typeof(input==="string")){
+        
+            return result.join("");
+        
     }
+    return result;
 }
