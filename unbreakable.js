@@ -1,27 +1,17 @@
-function split(str,separator) {
+function split(str, separator) {
   let result = "";
   let final = [];
 
-  for (let a = 0; a < str.length; a++) {
-    if (str[a] != ' ') {
-      result += str[a];
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== separator) {
+      result += str[i];
     } else {
       final.push(result);
       result = "";
     }
   }
-
-
-  for (let k=0;k<final.length;k++){
-if (k != str.length-1){
-
-    final.push(result)+separator;
-  }else{
-        final.push(result);
-
-  }
-  }
   
+  final.push(result); 
   return final;
 }
 
