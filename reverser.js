@@ -6,9 +6,9 @@ function reverse(input){
      result.push(input[i]);
     }
 
-    if (typeof(input==="string")){
+    if (typeof(input==='string')){
         
-            return result.join("");
+            return result.join('');
         
     }
     return result;
