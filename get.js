@@ -1,21 +1,15 @@
+function get(src, path) {
+  if (path === "") return undefined;
 
+  let keys = path.split(".");
 
-
-function get(src,path){
-
-let result=path.split(".");
-
-for (let i=0;i<result.length;i++){
-
-    if (src===null || src===undefined){
-        return undefined;
-    }else{
-        src=src[result[i]]
+  for (let i = 0; i < keys.length; i++) {
+    if (src === null || src === undefined) {
+      return undefined;
     }
+
+    src = src[keys[i]];
+  }
+
+  return src;
 }
-
-
-return src;
-}
-
-console.log(get(src, path));
