@@ -1,19 +1,4 @@
-function split(str, separator) {
-  let result = "";
-  let final = [];
 
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] !== separator) {
-      result += str[i];
-    } else {
-      final.push(result);
-      result = "";
-    }
-  }
-  
-  final.push(result); 
-  return final;
-}
 function split(str, separator) {
   let final = [];
   let result = "";
