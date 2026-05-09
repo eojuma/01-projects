@@ -10,13 +10,18 @@ function split(str,separator) {
       result = "";
     }
   }
-  if (a != str.length-1){
+
+
+  for (let k=0;k<final.length;k++){
+if (k != str.length-1){
 
     final.push(result)+separator;
   }else{
         final.push(result);
 
   }
+  }
+  
   return final;
 }
 
