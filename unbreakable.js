@@ -1,16 +1,22 @@
-function split(s) {
+function split(str,separator) {
   let result = "";
   let final = [];
 
-  for (let a = 0; a < s.length; a++) {
-    if (s[a] != " ") {
-      result += s[a];
+  for (let a = 0; a < str.length; a++) {
+    if (str[a] != separator) {
+      result += str[a];
     } else {
       final.push(result);
       result = "";
     }
   }
-  final.push(result);
+  if (a != str.length-1){
+
+    final.push(result)+" ";
+  }else{
+        final.push(result);
+
+  }
   return final;
 }
 
