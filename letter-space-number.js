@@ -1,19 +1,7 @@
 function letterSpaceNumber(s) {
-    let result = [];
+  const pattern = /\w\s\d\b/g;
 
-    for (let i = 0; i < s.length - 2; i++) {
-        const char = s[i];
-        const space = s[i+1];
-        const digit = s[i+2];
-        const nextChar = s[i+3]; 
+  const matches = s.match(pattern);
 
-        if (
-            space === ' ' && 
-            (digit >= '0' && digit <= '9') && 
-            !(nextChar >= '0' && nextChar <= '9') 
-        ) {
-            result.push(char + space + digit);
-        }
-    }
-    return result;
+  return matches || [];
 }
