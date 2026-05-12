@@ -12,7 +12,7 @@ const DayNames = [
     "secondThursday",
     "secondFriday",
     "secondSaturday",
-    "secodSunday",
+    "secondSunday",
 
 ]
 
