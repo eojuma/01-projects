@@ -1,5 +1,6 @@
 function isValid(date){
-    return new Date(date) instanceof Date && !isNaN(date.getTime());
+    const d=new Date(date)
+    return d instanceof Date && !isNaN(d);
 }
 
 
