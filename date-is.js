@@ -1,29 +1,34 @@
 function isValid(date) {
-    // 1. Strict Type Check: If it's not an instance of Date, return false immediately
-    if (!(date instanceof Date)) {
-        return false;
+    // 1. If it's a Date object, make sure it's not "Invalid Date"
+    if (date instanceof Date) {
+        return !isNaN(date.getTime());
     }
-    // 2. Value Check: If it is a Date object, make sure it isn't "Invalid Date" (NaN)
-    return !isNaN(date.getTime());
+    
+    // 2. If it's a Number, it's valid (Date.now() is a number)
+    if (typeof date === 'number') {
+        return true;
+    }
+
+    // 3. For everything else (strings, booleans, null), return false
+    return false;
 }
 
 function isAfter(date1, date2) {
-    // Both must be valid Date objects according to our strict isValid
     if (!isValid(date1) || !isValid(date2)) return false;
-    return date1 > date2;
+    return new Date(date1) > new Date(date2);
 }
 
 function isBefore(date1, date2) {
     if (!isValid(date1) || !isValid(date2)) return false;
-    return date1 < date2;
+    return new Date(date1) < new Date(date2);
 }
 
 function isFuture(date) {
-    // Must be a valid Date object AND in the future
-    return isValid(date) && date > new Date();
+    if (!isValid(date)) return false;
+    return new Date(date) > new Date();
 }
 
 function isPast(date) {
-    // Must be a valid Date object AND in the past
-    return isValid(date) && date < new Date();
+    if (!isValid(date)) return false;
+    return new Date(date) < new Date();
 }
