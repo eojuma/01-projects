@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie Trackers</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Groupie Trackers</h1>
+        <div class="search-box">
+            <form method="GET" action="/">
+                <input type="text" name="query" placeholder="Search for a band or member" value="{{.Query}}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <main class="grid">
+        {{ range .Artists }}
+        <a href="/details?id={{.ID}}" class="card-link">
+            <article class="card">
+                <img src="{{ .Image }}" alt="{{ .Name }}">
+                <div class="name">{{ .Name }}</div>
+                <div class="info-row">
+                    Formed: {{ .CreationDate }} &bull; First Album: {{ .FirstAlbum }}
+                </div>
+
+                <span class="section-label">Members</span>
+                <div class="member-container">
+                    {{ range .Members }}
+                    <span class="member-tag">{{ . }}</span>
+                    {{ end }}
+                </div>
+
+                <div class="card-footer">
+                    <span>View Tour Dates & Locations &rarr;</span>
+                </div>
+            </article>
+        </a>
+        {{ else }}
+        <div class="no-results">
+            <p>No artists found matching "{{.Query}}".</p>
+        </div>
+        {{ end }}
+    </main>
+</body>
+</html>

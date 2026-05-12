@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}} - Details</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>{{.Name}}</h1>
+        <a href="/" style="color: var(--cyan); text-decoration: none;">&larr; Back to Artists</a>
+    </header>
+
+    <main class="grid" style="display: block; max-width: 800px;">
+        <div class="card" style="cursor: default; transform: none;">
+            <img src="{{.Image}}" alt="{{.Name}}" style="max-width: 300px; display: block; margin: 0 auto 20px;">
+            
+            <div class="info-row" style="text-align: center; font-size: 1.2rem;">
+                First Album: {{.FirstAlbum}} | Formed: {{.CreationDate}}
+            </div>
+
+            <span class="section-label">Band Members</span>
+            <div class="member-container">
+                {{range .Members}}
+                <span class="member-tag">{{.}}</span>
+                {{end}}
+            </div>
+
+            <span class="section-label">Tour Dates & Locations</span>
+            <div class="details-content">
+                {{range $loc, $dates := .DatesLocations}}
+                <div style="margin-bottom: 15px;">
+                    <strong class="loc">{{$loc | formatLoc}}</strong>
+                    {{range $dates}}
+                    <span class="date" style="display: inline-block; margin-right: 10px;">&bull; {{.}}</span>
+                    {{end}}
+                </div>
+                {{else}}
+                <p>No tour information available.</p>
+                {{end}}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

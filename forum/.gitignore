@@ -1,0 +1,12 @@
+# Ignore the SQLite database file
+*.db
+
+# Ignore local binary created by 'make build'
+forum
+
+# Standard Go ignores
+bin/
+obj/
+vendor/
+.exe
+.env

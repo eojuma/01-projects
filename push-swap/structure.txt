@@ -1,0 +1,17 @@
+.
+├── algorithm
+│   └── sort.go
+├── go.mod
+├── instructions
+│   ├── Pa.go
+│   ├── Pb.go
+│   ├── ra.go
+│   ├── rra.go
+│   └── sa.go
+├── main.go
+├── README.md
+├── stack
+│   └── stack.go
+└── structure.txt
+
+4 directories, 11 files

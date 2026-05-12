@@ -1,0 +1,57 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <title>Forum - Register</title>
+</head>
+<body style="background-color: var(--bg-body);">
+    <nav class="nav-bar-cont">
+        <div class="display-nav-bar">
+            <a href="/" class="logo">Forum</a>
+            <div class="display-btns">
+                <a href="/login"><button class="btn login-btn">Login</button></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-container">
+        <header class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join our community today</p>
+        </header>
+
+        {{ if .Error }}
+        <div class="error-msg">{{ .Error }}</div>
+        {{ end }}
+
+        <form action="/register" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-input" placeholder="johndoe" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required minlength="8">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-input" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="auth-btn">Create Account</button>
+        </form>
+
+        <footer class="auth-footer">
+            <p>Already have an account? <a href="/login">Sign in</a></p>
+        </footer>
+    </main>
+</body>
+</html>
+{{ end }}

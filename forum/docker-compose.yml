@@ -1,0 +1,8 @@
+services:
+  forum:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./internals/db/data:/app/internals/db/data
+    restart: unless-stopped

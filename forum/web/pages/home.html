@@ -1,0 +1,134 @@
+{{ define "base" }}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Forum</title>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="nav-bar-cont">
+        <div class="display-nav-bar">
+            <a href="/" class="logo">Forum</a>
+            <div class="search-cont">
+              <form action="/search" method="GET">
+                <input type="search" name="q" class="search-input" placeholder="Search discussions..." />
+              </form>
+            </div>
+            
+            {{if .IsLoggedIn}}
+            <div class="user-profile-cont">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    {{if .User}}
+                    <div class="image-div">
+                        <span class="user-initial">{{.Initials}}</span>
+                    </div>
+                    <p style="font-weight: 700; color: var(--primary-color);">{{ .User.Username}}</p>
+                    {{end}}
+                </div>
+
+                <div class="logout-div">
+                    <a href="/logout">
+                        <img class="logout-icon" src="/static/icons/logout.png" alt="logout">
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+            {{else}}
+            <div class="display-btns">
+                <a href="/register"><button class="btn sign-up-btn">Sign Up</button></a>
+                <a href="/login"><button class="btn login-btn">Login</button></a>
+            </div>
+            {{end}}
+        </div>
+    </nav>
+
+    <section class="main-content-cont">
+        <aside class="left-bar-main-cont">
+            <p class="topics">Categories</p>
+            <div class="category-list">
+                <a href="/post/category?q=technology" class="category-link"><div class="single-sub-forum"><p>Technology</p></div></a>
+                <a href="/post/category?q=social" class="category-link"><div class="single-sub-forum"><p>Social</p></div></a>
+                <a href="/post/category?q=health" class="category-link"><div class="single-sub-forum"><p>Health</p></div></a>
+                <a href="/post/category?q=business" class="category-link"><div class="single-sub-forum"><p>Business</p></div></a>
+                <a href="/post/category?q=agriculture" class="category-link"><div class="single-sub-forum"><p>Agriculture</p></div></a>
+                <a href="/post/category?q=other" class="category-link"><div class="single-sub-forum"><p>Other</p></div></a>
+            </div>
+        </aside>
+
+        <main class="main-content-div" style="gap: 2rem;">
+            {{if .Posts}}
+            {{range .Posts}}
+            <article class="post-main-cont" style="padding: 2rem; margin-bottom: 0.5rem;">
+                <header class="user-post-profile" style="margin-bottom: 1.5rem;">
+                    <div class="image-div" style="width: 2.5rem; height: 2.5rem; background-color: var(--primary-color); border:none;">
+                         <span class="user-initial" style="color: white; font-size: 1.1rem;">{{.Initials}}</span>
+                    </div>
+                    <div>
+                        <h3 class="username" style="font-size: 1rem; color: var(--text-main);">{{.Username}}</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">{{ .CreatedAt }}</p>
+                    </div>
+                </header>
+                <div class="post-body">
+                    <h2 class="post-title" style="margin-bottom: 1rem; font-size: 1.6rem;">{{ .Title }}</h2>
+                    {{if .Image}}
+                    <img src="{{.Image}}" alt="image"/>
+                    {{end}}
+                    <p class="post-text" style="margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.7; color: #444;">{{ .Content }}</p>
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="font-size: 0.75rem; background: var(--bg-body); padding: 5px 12px; border-radius: 15px; color: var(--primary-color); font-weight: 700; border: 1px solid var(--border-color);">
+                            {{ .Category }}
+                        </span>
+                    </div>
+                </div>
+                <footer class="interactions" style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; border-top: 1px solid #eee; padding-top: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <form action="/vote/like" method="POST" style="margin:0;">
+                            <input type="hidden" name="user_id" value="{{ $.User.UserID }}">
+                            <input type="hidden" name="post_id" value="{{ .PostID }}">
+                            <button type="submit" style="display: flex; align-items: center; gap: 5px; padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ddd; background: white; cursor: pointer;">
+                                <span>👍</span> <span>{{ .Likes }}</span>
+                            </button>
+                        </form>
+                        <form action="/vote/dislike" method="POST" style="margin:0;">
+                            <input type="hidden" name="user_id" value="{{ $.User.UserID }}">
+                            <input type="hidden" name="post_id" value="{{ .PostID }}">
+                            <button type="submit" style="display: flex; align-items: center; gap: 5px; padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid #ddd; background: white; cursor: pointer;">
+                                <span>👎</span> <span>{{ .Dislikes }}</span>
+                            </button>
+                        </form>
+                    </div>
+                    <a href="/post/view?id={{ .PostID }}" style="margin-left: auto; text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.95rem;">
+                        Join Discussion →
+                    </a>
+                </footer>
+            </article>
+            {{end}}
+            {{else}}
+            <div class="post-main-cont" style="text-align: center; padding: 4rem;">
+                <p style="color: var(--text-muted); font-size: 1.1rem;">No discussions found matching your criteria.</p>
+            </div>
+            {{end}}
+        </main>
+
+        <aside class="right-bar-main">
+            <a href="/post/create" style="text-decoration: none;">
+                <button class="btn login-btn" style="width: 100%; margin-bottom: 2rem; padding: 1rem; font-size: 1rem; box-shadow: var(--shadow-sm);">+ Start New Topic</button>
+            </a>
+            <p class="filter-title">Discover</p>
+            <div class="filter-by">
+                <a href="/post/likes">🔥 Trending Topics</a>
+                <a href="/post/comments">💬 Most Discussed</a>
+                {{if .IsLoggedIn}}
+                <a href="/post/my-posts">📝 Your Contributions</a>
+                <a href="/post/my-likes">❤️ Your Favorites</a>
+                {{end}}
+            </div>
+        </aside>
+    </section>
+
+</body>
+</html>
+{{ end }}

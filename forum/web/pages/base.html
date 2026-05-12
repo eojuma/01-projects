@@ -1,0 +1,23 @@
+{{ define "base" }}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 
+            {{ block "title" .}}
+                forum
+            {{ end }}
+        </title>
+        {{ block "head" .}}{{ end }}
+    </head>
+
+    <body>
+        <main>
+            {{ template "contents" . }}
+        </main>
+    </body>
+</html>
+
+{{ end }}
+
+

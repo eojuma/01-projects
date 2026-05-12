@@ -1,0 +1,101 @@
+/* Universal Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: #e2e8ed; /* Matching login background */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    width: 100%;
+}
+
+/* The '.main' container now acts like '.gen-layout' */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* The form now looks like the '.main-login' card[cite: 6, 7] */
+form {
+    width: 100%;
+    max-width: 400px; /* Match login width[cite: 6] */
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Match login shadow[cite: 6] */
+    border: none; /* Removing the thin green border from original register */
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* Styling the title to match 'login-head h2'[cite: 4, 6, 7] */
+.title {
+    font-size: 1.5rem;
+    color: #2d3436;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Cleaning up the horizontal rule[cite: 5, 7] */
+.hr {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #dfe6e9;
+    margin-top: 0.5rem;
+}
+
+/* Input styling to match login page[cite: 6, 7] */
+input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    min-height: auto; /* Overriding original 48px to match login[cite: 6, 7] */
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #0984e3; /* Match login focus color[cite: 6] */
+}
+
+/* Submit button styling[cite: 6, 7] */
+input[type="submit"] {
+    background-color: #0984e3;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    margin-top: 0.5rem;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #074b83;
+}
+
+/* Footer link styling[cite: 5, 6] */
+.main span {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #636e72;
+}
+
+.main a {
+    color: #0984e3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.main a:hover {
+    text-decoration: underline;
+}

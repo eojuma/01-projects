@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{ .StatusCode }} - Groupie Trackers</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Groupie Trackers</h1>
+    </div>
+    <div style="text-align: center; padding: 4rem 1rem;">
+        <h2 style="font-size: 4rem; margin-bottom: 0.5rem;">{{ .StatusCode }}</h2>
+        <p style="font-size: 1.2rem; color: #666;">{{ .Message }}</p>
+        <a href="/" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 1.5rem; background: #333; color: #fff; text-decoration: none; border-radius: 8px;">Go Home</a>
+    </div>
+</body>
+
+</html>
