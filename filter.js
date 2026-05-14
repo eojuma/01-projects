@@ -17,3 +17,18 @@ function filter(arrset, callback) {
     }
     return result;
   }
+
+  function partition(arrset, callback) {
+    const truthy = [];
+    const falsy = [];
+    
+    for (let i = 0; i < arrset.length; i++) {
+      if (callback(arrset[i], i, arrset)) {
+        truthy.push(arrset[i]);
+      } else {
+        falsy.push(arrset[i]);
+      }
+    }
+    
+    return [truthy, falsy];
+  }
