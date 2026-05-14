@@ -1,5 +1,5 @@
-function adder(numbers) {
-    return numbers.reduce((accumulator, current) => accumulator + current, 0);
+function adder(numbers,start=0) {
+    return numbers.reduce((accumulator, current) => accumulator + current, start);
   }
 
   function sumOrMul(numbers, initialValue = 0) {
