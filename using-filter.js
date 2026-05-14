@@ -22,3 +22,17 @@ function filterStartVowel(words) {
       return distinctVowels.size === 1;
     });
   }
+
+  function multiFilter(states) {
+    return states.filter(item => {
+      const startingWithVowel = /^[aeiou]/i.test(item.name);
+      const hasVowel = /[aeiou]/i.test(item.tag);
+  
+      return (
+        item.capital.length >= 8 &&    
+        !startingWithVowel &&           
+        hasVowel &&                
+        item.region !== "South"      
+      );
+    });
+  }
