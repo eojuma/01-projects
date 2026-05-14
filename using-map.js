@@ -27,5 +27,5 @@ const fahrenheitToCelsius = (temps) => {
         .split(' ')
         .map(word => word[0].toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
-        return `${cValue}°Celsius in ${item.city}, ${formattedState}`;    });
+        return `${celciusValue}°Celsius in ${item.city}, ${formattedState}`;    });
   }
