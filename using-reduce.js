@@ -11,3 +11,9 @@ function adder(numbers) {
       }
     }, initialValue);
   }
+
+  function funcExec(functions, initialValue) {
+    return functions.reduce((accumulator, currentFunc) => {
+      return currentFunc(accumulator);
+    }, initialValue);
+  }
