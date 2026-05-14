@@ -5,3 +5,10 @@ function filerShortStateName(states){
 function filterStartVowel(words) {
     return words.filter(str => /^[aeiou]/i.test(str));
   }
+
+  function filter5Vowels(words) {
+    return words.filter(str => {
+      const vowels = str.match(/[aeiou]/gi) || [];
+      return vowels.length >= 5;
+    });
+  }
