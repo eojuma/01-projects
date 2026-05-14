@@ -18,4 +18,14 @@ const fahrenheitToCelsius = (temps) => {
     return temps.map(temp=>({...temp,temperature: temp.temperature.replace(/\s+/g,'')}));
   };
 
-  
+  function temperatureForecast(weatherInfo){
+    return weatherInfo.map(item=>{
+        const fahrenheitValue = parseInt(item.temperature.replace(/\s+/g, ''));
+        const celciusValue = Math.floor((fahrenheitValue-32)*5/9);
+
+        const formattedState = item.state
+        .split(' ')
+        .map(word => word[0].toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+        return `${cValue}°Celsius in ${item.city}, ${formattedState}`;    });
+  }
