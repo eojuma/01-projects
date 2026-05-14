@@ -12,3 +12,13 @@ function filterStartVowel(words) {
       return vowels.length >= 5;
     });
   }
+
+  function filter1DistinctVowel(words) {
+    return words.filter(str => {
+      const vowels = str.match(/[aeiou]/gi) || [];
+      if (vowels.length === 0) return false;
+      
+      const distinctVowels = new Set(vowels.map(v => v.toLowerCase()));
+      return distinctVowels.size === 1;
+    });
+  }
