@@ -13,3 +13,9 @@ const fahrenheitToCelsius = (temps) => {
       return `${c}°C`;
     });
   };
+
+  function trimTemp(temps){
+    return temps.map(temp=>({...temp,temperature: temp.temperature.replace(/\s+/g,'')}));
+  };
+
+  
