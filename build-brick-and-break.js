@@ -1,6 +1,7 @@
 export function build(totalbrics){
 
 let currentBrick  = 1;
+const container = document.getElementById('tower') || document.body;
 const intervals = setInterval(()=>{
     if (currentBrick>totalbrics){
         clearInterval(intervals);
@@ -11,7 +12,7 @@ const intervals = setInterval(()=>{
     if (currentBrick%3==2){
 brick.dataset.foundation ="true";
     }
-    document.body.appendChild(brick);
+   container.appendChild(brick);
     currentBrick++;
 },100);
 
@@ -29,6 +30,13 @@ ids.forEach(id => {
     }
 });
 }
-export function destroy(){
 
+
+export function destroy(){
+    const Bricks = document.querySelectorAll('div[id^="brick-"]');
+
+    if (Bricks.length>0){
+        const lastBrick = Bricks[Bricks.length-1];
+        lastBrick.remove();
+    }
 }
