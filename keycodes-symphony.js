@@ -35,4 +35,6 @@ function generateColorFromKey(key) {
     return `hsl(${hue}, 75%, 60%)`;
 }
 
-compose();
+if (typeof window !== 'undefined') {
+    compose();
+}
