@@ -21,7 +21,7 @@ const inactiveClassical = Array.from(document.querySelectorAll('a.classical:not(
 export function getBonannoPisano(){
     const bonannoPisano = document.getElementById('BonannoPisano');
 
-    const allActiveClassical = Array.from(querySelectorAll('a.classical.active'));
+    const allActiveClassical = Array.from(document.querySelectorAll('a.classical.active'));
     const otherActiveClassical=allActiveClassical.filter(architech=>architech !==bonannoPisano);
     return [bonannoPisano,otherActiveClassical];
 }
