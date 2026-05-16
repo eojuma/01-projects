@@ -16,3 +16,19 @@ brick.dataset.foundation ="true";
 },100);
 
 }
+
+export function repair(...ids){
+ids.forEach(id => {
+    const brick = document.getElementById(id);
+    if (brick){
+        if (brick.dataset.foundation === "true"){
+            brick.dataset.repaired = "in progress"
+        }else{
+            brick.dataset.repaired="true"
+        }
+    }
+});
+}
+export function destroy(){
+
+}
