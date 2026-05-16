@@ -32,3 +32,12 @@ ids.forEach(id => {
 export function destroy(){
 
 }
+
+export function destroy(){
+    const Bricks = document.querySelectorAll('div[id^="brick-"]');
+
+    if (Bricks.length>0){
+        const lastBrick = Bricks[Bricks.length-1];
+        lastBrick.remove();
+    }
+}
