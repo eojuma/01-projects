@@ -7,8 +7,11 @@ function createCircle(event) {
   circle.style.backgroundColor = 'white';
   circle.style.position = 'absolute'; 
   
-  circle.style.left = `${event.pageX}px`;
-  circle.style.top = `${event.pageY}px`;
+  const x = event.clientX;
+  const y = event.clientY;
+  
+  circle.style.left = `${x}px`;
+  circle.style.top = `${y}px`;
   
   document.body.appendChild(circle);
   activeCircle = circle;
@@ -19,13 +22,21 @@ function createCircle(event) {
 function moveCircle(event) {
   if (!activeCircle) return;
 
-  activeCircle.style.left = `${event.pageX}px`;
-  activeCircle.style.top = `${event.pageY}px`;
+  const x = event.clientX;
+  const y = event.clientY;
+
+  activeCircle.style.left = `${x}px`;
+  activeCircle.style.top = `${y}px`;
 
   checkTrap(activeCircle);
 }
 
 function setBox() {
+  if (document.querySelector('.box')) {
+    boxElement = document.querySelector('.box');
+    return;
+  }
+
   boxElement = document.createElement('div');
   boxElement.classList.add('box');
   
