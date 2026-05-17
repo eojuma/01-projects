@@ -13,6 +13,7 @@ function createCircle(event) {
   activeCircle = circle;
 }
 
+
 function moveCircle(event) {
   if (!activeCircle) return;
 
@@ -28,20 +29,21 @@ function setBox() {
   document.body.appendChild(boxElement);
 }
 
+
 function checkTrap(circle) {
   if (!boxElement || !circle) return;
 
   const circleRect = circle.getBoundingClientRect();
   const boxRect = boxElement.getBoundingClientRect();
 
-  const isInside =
+  const isStrictlyInside = 
     circleRect.left > boxRect.left &&
     circleRect.right < boxRect.right &&
     circleRect.top > boxRect.top &&
     circleRect.bottom < boxRect.bottom;
 
-  if (isInside) {
-    circle.style.backgroundColor = 'var(--purple)';
+  if (isStrictlyInside) {
+\    circle.style.backgroundColor = 'var(--purple)';
     activeCircle = null; 
   }
 }
