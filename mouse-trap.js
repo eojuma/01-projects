@@ -5,7 +5,7 @@ function createCircle(event) {
   const circle = document.createElement('div');
   circle.classList.add('circle');
   circle.style.backgroundColor = 'white';
-  circle.style.position = 'fixed';
+  circle.style.position = 'absolute';
   circle.style.left = event.clientX + 'px';
   circle.style.top = event.clientY + 'px';
   circle.style.width = '20px';
