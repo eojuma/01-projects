@@ -1,6 +1,6 @@
-
 let activeCircle = null;
 let boxElement = null;
+
 function createCircle(event) {
   const circle = document.createElement('div');
   circle.classList.add('circle');
@@ -10,8 +10,9 @@ function createCircle(event) {
   circle.style.height = '20px';
   circle.style.borderRadius = '50%';
   
-  circle.style.left = event.clientX + 'px';
-  circle.style.top = event.clientY + 'px';
+  // Center the circle on the mouse click by subtracting half the width/height (10px)
+  circle.style.left = (event.clientX - 10) + 'px';
+  circle.style.top = (event.clientY - 10) + 'px';
   
   document.body.appendChild(circle);
   
@@ -19,18 +20,18 @@ function createCircle(event) {
 }
 
 function moveCircle(event) {
-
   if (!activeCircle) return;
 
-  
-  activeCircle.style.left = event.clientX + 'px';
-  activeCircle.style.top = event.clientY + 'px';
+  // Center the circle on the moving mouse pointer as well
+  activeCircle.style.left = (event.clientX - 10) + 'px';
+  activeCircle.style.top = (event.clientY - 10) + 'px';
   
   checkTrap(activeCircle);
 }
 
 function setBox() {
   if (document.querySelector('.box')) {
+    boxElement = document.querySelector('.querySelector'); // Note: keep your existing selector logic if it works
     boxElement = document.querySelector('.box');
     return;
   }
@@ -52,16 +53,14 @@ function checkTrap(circle) {
     circleRect.top > boxRect.top &&
     circleRect.bottom < boxRect.bottom;
   
-  if (isStrictlyInside && circle.style.backgroundColor !== 'var(--purple)') {
-    circle.style.backgroundColor = 'var(--purple)';
+  if (isStrictlyInside && circle.style.backgroundColor !== 'purple') { 
+    // Note: ensure your CSS variable or 'purple' matches what the test suite expects
+    circle.style.backgroundColor = 'purple'; 
     activeCircle = null;
   }
 }
 
-setBox();
-document.addEventListener('click', createCircle);
-document.addEventListener('mousemove', moveCircle);
-
+// Cleaned up duplicate event listeners from your snippet
 setBox();
 document.addEventListener('click', createCircle);
 document.addEventListener('mousemove', moveCircle);
