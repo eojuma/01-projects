@@ -1,66 +1,72 @@
-let activeCircle = null;
-let boxElement = null;
-
-function createCircle(event) {
-  const circle = document.createElement('div');
-  circle.classList.add('circle');
-  circle.style.backgroundColor = 'white';
-  circle.style.position = 'absolute';
-  circle.style.width = '20px';
-  circle.style.height = '20px';
-  circle.style.borderRadius = '50%';
-  
-  // Center the circle on the mouse click by subtracting half the width/height (10px)
-  circle.style.left = (event.clientX - 10) + 'px';
-  circle.style.top = (event.clientY - 10) + 'px';
-  
-  document.body.appendChild(circle);
-  
-  activeCircle = circle;
+export function createCircle() {
+    document.addEventListener('mousedown', event => {
+        const newCirc = document.createElement('div')
+        newCirc.setAttribute('class', 'circle')
+        newCirc.setAttribute('id', 'Tester')
+        let x = event.clientX - 25
+        let y = event.clientY - 25
+        newCirc.setAttribute('style', 'left: ' + x.toString() + 'px; top: ' + y.toString() + 'px; background: white;')
+        document.body.appendChild(newCirc);
+    })
 }
 
-function moveCircle(event) {
-  if (!activeCircle) return;
+export function moveCircle() {
 
-  // Center the circle on the moving mouse pointer as well
-  activeCircle.style.left = (event.clientX - 10) + 'px';
-  activeCircle.style.top = (event.clientY - 10) + 'px';
-  
-  checkTrap(activeCircle);
+
+    document.addEventListener('mousemove', event => {
+        const lastCircle = document.querySelector('div:last-child')
+        lastCircle.style.left = `${event.clientX - 25}px`
+        lastCircle.style.top = `${event.clientY - 25}px`
+        document.body.append(lastCircle)
+        let midBox = document.querySelector('div.box')
+        let dims = midBox.getBoundingClientRect()
+
+
+        if (lastCircle.getAttribute('class') !== 'box') {
+            if ((+lastCircle.style.left.replace('px', '') > (dims.x)) && (+lastCircle.style.left.replace('px', '') < (dims.right - 50)) && (+lastCircle.style.top.replace('px', '') > (dims.top)) && (+lastCircle.style.top.replace('px', '') < (dims.bottom - 50))) {
+                lastCircle.style.background = 'var(--purple)'
+            }
+        }
+
+        if (event.clientX - 25 < (dims.x) && lastCircle.style.background === 'var(--purple)') {
+            console.log(lastCircle.style.left)
+            lastCircle.style.left = (dims.x).toString() + 'px'
+
+            if (event.clientY - 25 < (dims.top)) {
+                lastCircle.style.top = (dims.y).toString() + 'px'
+            }
+            console.log(event.clientY - 25)
+            console.log(dims.bottom)
+
+            if (event.clientY - 25 > (dims.bottom - 50)) {
+                lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+            }
+        } else if (event.clientX - 25 > (dims.right - 50) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.left = (dims.right - 50).toString() + 'px'
+
+            if (event.clientY - 25 < (dims.top)) {
+                lastCircle.style.top = (dims.y).toString() + 'px'
+            }
+            console.log(event.clientY - 25)
+            console.log(dims.bottom)
+
+            if (event.clientY - 25 > (dims.bottom - 50)) {
+                lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+            }
+        } else if ((event.clientY - 25 > (dims.bottom - 50)) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.top = (dims.bottom - 50).toString() + 'px'
+
+        } else if ((event.clientY - 25 < (dims.top)) && lastCircle.style.background === 'var(--purple)') {
+            lastCircle.style.top = (dims.top).toString() + 'px'
+
+        }
+
+    })
+
 }
 
-function setBox() {
-  if (document.querySelector('.box')) {
-    boxElement = document.querySelector('.querySelector'); // Note: keep your existing selector logic if it works
-    boxElement = document.querySelector('.box');
-    return;
-  }
-  
-  boxElement = document.createElement('div');
-  boxElement.classList.add('box');
-  document.body.appendChild(boxElement);
+export function setBox() {
+    const centerBox = document.createElement('div')
+    centerBox.setAttribute('class', 'box')
+    document.body.append(centerBox)
 }
-
-function checkTrap(circle) {
-  if (!boxElement || !circle) return;
-  
-  const circleRect = circle.getBoundingClientRect();
-  const boxRect = boxElement.getBoundingClientRect();
-  
-  const isStrictlyInside = 
-    circleRect.left > boxRect.left &&
-    circleRect.right < boxRect.right &&
-    circleRect.top > boxRect.top &&
-    circleRect.bottom < boxRect.bottom;
-  
-  if (isStrictlyInside && circle.style.backgroundColor !== 'purple') { 
-    // Note: ensure your CSS variable or 'purple' matches what the test suite expects
-    circle.style.backgroundColor = 'purple'; 
-    activeCircle = null;
-  }
-}
-
-// Cleaned up duplicate event listeners from your snippet
-setBox();
-document.addEventListener('click', createCircle);
-document.addEventListener('mousemove', moveCircle);
