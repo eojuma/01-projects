@@ -1,75 +1,49 @@
 
-import { places } from './where-do-we-go.data.js'
+export const pick = () => {
+  const hslDiv = document.createElement('div')
+  const hueDiv = document.createElement('div')
+  const lumDiv = document.createElement('div')
+  hslDiv.className = 'text hsl'
+  hueDiv.className = 'text hue'
+  lumDiv.className = 'text luminosity'
+  document.body.append(hslDiv, hueDiv, lumDiv)
 
-const getCoords = (coordString) => {
-  const parts = coordString.match(/\d+/g).map(Number)
-  const deg = parts[0]
-  const min = parts[1]
-  const sec = parts[2]
-  const dir = coordString.includes('S') ? -1 : 1
-  return dir * (deg + min / 60 + sec / 3600)
-}
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  svg.setAttribute('height', window.innerHeight)
+  svg.setAttribute('width', window.innerWidth)
 
-const createCompass = () => {
-  const compass = document.createElement('div')
-  compass.className = 'direction'
-  compass.textContent = 'N'
-  document.body.append(compass)
-  return compass
-}
+  const axisX = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+  const axisY = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+  axisX.setAttribute('id', 'axisX') 
+  axisY.setAttribute('id', 'axisY') 
+  axisX.style.stroke = axisY.style.stroke = 'white'
+  axisX.style.strokeWidth = axisY.style.strokeWidth = '1'
+  svg.append(axisX, axisY)
+  document.body.append(svg)
 
-const createLocationAnchor = (place) => {
-  const anchor = document.createElement('a')
-  anchor.className = 'location'
-  anchor.textContent = `${place.name}\n${place.coordinates}`
-  anchor.style.color = place.color
-  anchor.href = `https://www.google.com/maps/place/${place.coordinates}`
-  anchor.target = '_blank'
-  return anchor
-}
+  document.addEventListener('mousemove', (event) => {
+    const x = event.clientX
+    const y = event.clientY
+    const hue = Math.round((x / window.innerWidth) * 360)
+    const lum = Math.round((y / window.innerHeight) * 100)
 
-const updateLocationAnchor = (anchor, place) => {
-  anchor.textContent = `${place.name}\n${place.coordinates}`
-  anchor.style.color = place.color
-  anchor.href = `https://www.google.com/maps/place/${place.coordinates}`
-}
+    hueDiv.textContent = `hue ${hue}`
+    lumDiv.textContent = `luminosity ${lum}`
+    hslDiv.textContent = `hsl(${hue}, 50%, ${lum}%)`
+    document.body.style.background = `hsl(${hue}, 50%, ${lum}%)`
 
-const createSections = (places) => {
-  places.forEach((place, index) => {
-    const section = document.createElement('section')
-    section.id = index.toString()
-    const imageLoc = place.name.toLowerCase().split(',')[0].split(' ').join('-')
-    section.style.background = `URL('./where-do-we-go_images/${imageLoc}.jpg')`
-    document.body.append(section)
-  })
-}
+    axisX.setAttribute('x1', x)
+    axisX.setAttribute('x2', x)
+    axisX.setAttribute('y1', 0)
+    axisX.setAttribute('y2', window.innerHeight)
 
-export const explore = () => {
-  const orderedPlaces = [...places].sort((a, b) =>
-        getCoords(b.coordinates) - getCoords(a.coordinates)
-    )
-
-  const compass = createCompass()
-  let oldValue = 0
-  window.addEventListener('scroll', () => {
-    const newValue = window.pageYOffset
-    compass.textContent = oldValue < newValue ? 'S' : 'N'
-    oldValue = newValue
+    axisY.setAttribute('x1', 0)
+    axisY.setAttribute('x2', window.innerWidth)
+    axisY.setAttribute('y1', y)
+    axisY.setAttribute('y2', y)
   })
 
-  const locationAnchor = createLocationAnchor(orderedPlaces[0])
-  document.body.append(locationAnchor)
-
-  createSections(orderedPlaces)
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const val = Math.round(window.scrollY / window.innerHeight)
-        updateLocationAnchor(locationAnchor, orderedPlaces[val])
-      }
-    })
-  }, { threshold: [0.5] })
-
-  document.querySelectorAll('section').forEach(section => observer.observe(section))
+  document.addEventListener('click', () => {
+    navigator.clipboard.writeText(hslDiv.textContent)
+  })
 }
