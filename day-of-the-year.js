@@ -11,3 +11,5 @@ function dayOfTheYear(date) {
     const msPerDay = 1000 * 60 * 60 * 24;
     return Math.round(diff / msPerDay) + 1;
 }
+
+console.log(new Date(Date.now()).toISOString())
