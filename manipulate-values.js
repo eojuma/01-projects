@@ -12,8 +12,11 @@ function mapValues(obj,callback){
 }
 
 
-function reduceValues(){
-     return Object.entries(obj).reduce((acc, [key, value]) => {
-    return callback(acc, value, key, obj);
-  }, initialValue);
+function reduceValues(obj,callback,initialValue){
+    const values = Object.values(obj);
+    if (initialValue === undefined) {
+    return values.reduce(callback);
+  }
+  
+  return values.reduce(callback, initialValue);
 }
