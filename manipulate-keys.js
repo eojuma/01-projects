@@ -21,3 +21,13 @@ function mapKeys(obj, callback) {
   }
   return result;
 }
+
+function reduceKeys(obj, callback, initialValue) {
+  const keys = Object.keys(obj);
+  
+  if (initialValue === undefined) {
+    return keys.reduce(callback);
+  }
+  
+  return keys.reduce(callback, initialValue);
+}
