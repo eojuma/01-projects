@@ -12,7 +12,7 @@ function mapValues(obj,callback){
 }
 
 
-function reduceValues(){
+function reduceValues(obj,callback,initialValue){
      return Object.entries(obj).reduce((acc, [key, value]) => {
     return callback(acc, value, key, obj);
   }, initialValue);
