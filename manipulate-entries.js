@@ -1,53 +1,93 @@
-import { NUTRITION_DB } from './manipulate-entries.data.js';
+const nutritionDB = {
+  tomato: {
+    calories: 18,
+    protein: 0.9,
+    carbs: 3.9,
+    sugar: 2.6,
+    fiber: 1.2,
+    fat: 0.2,
+  },
+  vinegar: {
+    calories: 20,
+    protein: 0.04,
+    carbs: 0.6,
+    sugar: 0.4,
+    fiber: 0,
+    fat: 0,
+  },
+  oil: { calories: 48, protein: 0, carbs: 0, sugar: 123, fiber: 0, fat: 151 },
+  onion: { calories: 0, protein: 1, carbs: 9, sugar: 0, fiber: 0, fat: 0 },
+  garlic: {
+    calories: 149,
+    protein: 6.4,
+    carbs: 33,
+    sugar: 1,
+    fiber: 2.1,
+    fat: 0.5,
+  },
+  paprika: {
+    calories: 282,
+    protein: 14.14,
+    carbs: 53.99,
+    sugar: 1,
+    fiber: 0,
+    fat: 12.89,
+  },
+  sugar: {
+    calories: 387,
+    protein: 0,
+    carbs: 100,
+    sugar: 100,
+    fiber: 0,
+    fat: 0,
+  },
+  orange: {
+    calories: 49,
+    protein: 0.9,
+    carbs: 13,
+    sugar: 9,
+    fiber: 0.2,
+    fat: 0.1,
+  },
+};
 
+function filterEntries(obj, predicate) {
+  return Object.fromEntries(Object.entries(obj).filter(predicate));
+}
 
-const filterEntries = (obj, callback) => {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([key, value]) => callback([key, value]))
+function mapEntries(obj, transform) {
+  return Object.fromEntries(Object.entries(obj).map(transform));
+}
+
+function reduceEntries(obj, reducer, initialValue) {
+  return Object.entries(obj).reduce(reducer, initialValue);
+}
+function totalCalories(groceriesCart) {
+  return Number(
+    reduceEntries(
+      groceriesCart,
+      (total, [item, grams]) => {
+        return total + (nutritionDB[item].calories * grams) / 100;
+      },
+      0,
+    ).toFixed(1),
   );
-};
+}
 
-const mapEntries = (obj, callback) => {
-  return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => callback([key, value]))
-  );
-};
-
-const reduceEntries = (obj, callback, initialValue) => {
-  return Object.entries(obj).reduce(
-    (acc, [key, value]) => callback(acc, [key, value]),
-    initialValue
-  );
-};
-
-const totalCalories = (cart) => {
-  const total = reduceEntries(cart, (sum, [item, weight]) => {
-    const caloriesPer100g = NUTRITION_DB[item]?.calories || 0;
-    return sum + (caloriesPer100g * (weight / 100));
-  }, 0);
-  return Math.round(total * 100) / 100; 
-};
-
-const lowCarbs = (cart) => {
-  return filterEntries(cart, ([item, weight]) => {
-    const carbsPer100g = NUTRITION_DB[item]?.carbs || 0;
-    const totalCarbsForItem = carbsPer100g * (weight / 100);
-    return totalCarbsForItem < 50;
+function lowCarbs(groceriesCart) {
+  return filterEntries(groceriesCart, ([item, grams]) => {
+    return (nutritionDB[item].carbs * grams) / 100 < 50;
   });
-};
+}
 
-const cartTotal = (cart) => {
-  return mapEntries(cart, ([item, weight]) => {
-    const itemMacros = NUTRITION_DB[item] || {};
-    
-    return [
-      item,
-      mapEntries(itemMacros, ([macro, valuePer100g]) => {
-        const totalValue = valuePer100g * (weight / 100);
-        return [macro, Math.round(totalValue * 1000) / 1000]; 
-      })
-    ];
+function cartTotal(groceriesCart) {
+  return mapEntries(groceriesCart, ([item, grams]) => {
+    const per100g = nutritionDB[item];
+    const nutrition = {};
+    for (let nutrient in per100g) {
+      let value = (per100g[nutrient] * grams) / 100;
+      nutrition[nutrient] = parseFloat(value.toFixed(3));
+    }
+    return [item, nutrition];
   });
-};
-
-export { filterEntries, mapEntries, reduceEntries, totalCalories, lowCarbs, cartTotal };
+}
