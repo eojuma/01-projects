@@ -1,3 +1,5 @@
+import { NUTRITION_DB } from './manipulate-entries.data.js';
+
 
 const filterEntries = (obj, callback) => {
   return Object.fromEntries(
@@ -17,7 +19,6 @@ const reduceEntries = (obj, callback, initialValue) => {
     initialValue
   );
 };
-
 
 const totalCalories = (cart) => {
   const total = reduceEntries(cart, (sum, [item, weight]) => {
@@ -48,3 +49,5 @@ const cartTotal = (cart) => {
     ];
   });
 };
+
+export { filterEntries, mapEntries, reduceEntries, totalCalories, lowCarbs, cartTotal };
