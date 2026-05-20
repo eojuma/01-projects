@@ -1,4 +1,3 @@
-// --- Core Utilities (Your existing correct code) ---
 
 const filterEntries = (obj, callback) => {
   return Object.fromEntries(
@@ -19,31 +18,33 @@ const reduceEntries = (obj, callback, initialValue) => {
   );
 };
 
-// --- Corrected Derived Functions ---
 
-// 1. totalCalories: Sums up the 'calories' property from every item in the cart
+const round3 = (num) => Math.round(num * 1000) / 1000;
+
 const totalCalories = (cart) => {
-  return reduceEntries(cart, (total, [item, nutrition]) => {
-    return total + (nutrition.calories || 0);
+  return reduceEntries(cart, (total, [item, weight]) => {
+    const caloriesPer100g = NUTRITION_DB[item]?.calories || 0;
+    return total + (caloriesPer100g * (weight / 100));
   }, 0);
 };
 
 const lowCarbs = (cart) => {
-  return filterEntries(cart, ([item, nutrition]) => {
-    return (nutrition.carbs || 0) < 50;
+  return filterEntries(cart, ([item, weight]) => {
+    const carbsPer100g = NUTRITION_DB[item]?.carbs || 0;
+    const totalCarbsForItem = carbsPer100g * (weight / 100);
+    return totalCarbsForItem < 50;
   });
 };
 
 
 const cartTotal = (cart) => {
-  return reduceEntries(cart, (acc, [item, nutrition]) => {
-    Object.entries(nutrition).forEach(([macro, value]) => {
-      acc[macro] = (acc[macro] || 0) + value;
-      
-      acc[macro] = Math.round(acc[macro] * 1000) / 1000;
+  return mapEntries(cart, ([item, weight]) => {
+    const macrosPer100g = NUTRITION_DB[item] || {};
+    
+    const calculatedNutrition = mapEntries(macrosPer100g, ([macro, valuePer100g]) => {
+      return [macro, round3(valuePer100g * (weight / 100))];
     });
-    return acc;
-  }, {});
-};
 
-export { filterEntries, mapEntries, reduceEntries, totalCalories, lowCarbs, cartTotal };
+    return [item, calculatedNutrition];
+  });
+};
