@@ -21,13 +21,13 @@ const filterCurry = (fn) => (obj) => {
 
 
 
-const reduceScore = (obj) => {
+const reduceScore = (obj,initialValue=0) => {
   return reduceCurry((acc, [_, person]) => {
     if (person.isForceUser) {
       return acc + person.pilotingScore + person.shootingScore;
     }
     return acc;
-  })(obj, 0);
+  })(obj, initialValue);
 };
 
 
