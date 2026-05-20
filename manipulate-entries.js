@@ -19,13 +19,12 @@ const reduceEntries = (obj, callback, initialValue) => {
 };
 
 
-const round3 = (num) => Math.round(num * 1000) / 1000;
-
 const totalCalories = (cart) => {
-  return reduceEntries(cart, (total, [item, weight]) => {
+  const total = reduceEntries(cart, (sum, [item, weight]) => {
     const caloriesPer100g = NUTRITION_DB[item]?.calories || 0;
-    return total + (caloriesPer100g * (weight / 100));
+    return sum + (caloriesPer100g * (weight / 100));
   }, 0);
+  return Math.round(total * 100) / 100; 
 };
 
 const lowCarbs = (cart) => {
@@ -36,15 +35,16 @@ const lowCarbs = (cart) => {
   });
 };
 
-
 const cartTotal = (cart) => {
   return mapEntries(cart, ([item, weight]) => {
-    const macrosPer100g = NUTRITION_DB[item] || {};
+    const itemMacros = NUTRITION_DB[item] || {};
     
-    const calculatedNutrition = mapEntries(macrosPer100g, ([macro, valuePer100g]) => {
-      return [macro, round3(valuePer100g * (weight / 100))];
-    });
-
-    return [item, calculatedNutrition];
+    return [
+      item,
+      mapEntries(itemMacros, ([macro, valuePer100g]) => {
+        const totalValue = valuePer100g * (weight / 100);
+        return [macro, Math.round(totalValue * 1000) / 1000]; 
+      })
+    ];
   });
 };
