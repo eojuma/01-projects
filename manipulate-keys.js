@@ -1,4 +1,4 @@
-function filerKeys(obj,callback){
+function filterKeys(obj,callback){
 const result = {};
 
 for (const key in obj){
