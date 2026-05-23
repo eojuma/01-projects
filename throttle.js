@@ -14,62 +14,58 @@ function throttle(func, delay) {
   };
 }
 
-
-
 function opThrottle(func, wait, options = {}) {
   let timeoutId = null;
   let savedArgs = null;
   let savedThis = null;
   let lastExecutedTime = 0;
 
-const trailing = options.trailing !== false;
-const leading = 'leading' in options ? !!options.leading : !options.trailing;
+  let leading = true;
+  let trailing = false;
 
-  const invokeFunc = (time) => {
-    lastExecutedTime = time;
-    const args = savedArgs;
-    const thisArg = savedThis;
-    savedArgs = null;
-    savedThis = null;
-    func.apply(thisArg, args);
-  };
-
-  const startTimer = (pendingWait) => {
-    timeoutId = setTimeout(timerExpired, pendingWait);
-  };
+  if ('leading' in options || 'trailing' in options) {
+    leading = !!options.leading;
+    trailing = !!options.trailing;
+  }
 
   const timerExpired = () => {
-    timeoutId = null;
     const now = Date.now();
     const timeSinceLastExec = now - lastExecutedTime;
     const remaining = wait - timeSinceLastExec;
 
-    if (trailing && savedArgs) {
-      if (remaining <= 0) {
-        invokeFunc(now);
-        startTimer(wait);
-      } else {
-        startTimer(remaining);
-      }
+    if (trailing && savedArgs && remaining <= 0) {
+      lastExecutedTime = now;
+      const args = savedArgs;
+      const thisArg = savedThis;
+      savedArgs = null;
+      savedThis = null;
+
+      func.apply(thisArg, args);
+      timeoutId = setTimeout(timerExpired, wait);
+    } else {
+      timeoutId = null;
+      savedArgs = null;
+      savedThis = null;
     }
   };
 
   return function (...args) {
     const now = Date.now();
-    const isFirstCall = !timeoutId;
 
-    if (isFirstCall) {
-      lastExecutedTime = now;
+    if (!timeoutId) {
       if (leading) {
+        lastExecutedTime = now;
         func.apply(this, args);
       } else {
         savedArgs = args;
         savedThis = this;
       }
-      startTimer(wait);
+      timeoutId = setTimeout(timerExpired, wait);
     } else {
-      savedArgs = args;
-      savedThis = this;
+      if (trailing) {
+        savedArgs = args;
+        savedThis = this;
+      }
     }
   };
 }
