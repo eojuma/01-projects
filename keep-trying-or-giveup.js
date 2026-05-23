@@ -7,7 +7,7 @@ function retry(count, callback) {
         return await callback.apply(this, args);
       } catch (error) {
         if (attempt === maxAttempts) {
-          throw new Error("All retries failed");
+          throw new Error(error instanceof Error ? error.message : String(error));
         }
       }
     }
