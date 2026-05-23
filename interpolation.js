@@ -1,19 +1,23 @@
 function interpolation({ step, start, end, duration, callback }) {
-  const interval = duration / step;
+  const intervalTime = duration / step;
   const range = end - start;
+  let i = 0;
 
-  function runStep(i) {
-    if (i >= step) return;
+  const intervalId = setInterval(() => {
+    if (i >= step) {
+      clearInterval(intervalId);
+      return;
+    }
 
     const x = i / step;
     const y = start + x * range;
 
     callback([x, y]);
+    i++;
+  }, intervalTime);
 
-    setTimeout(() => {
-      runStep(i + 1);
-    }, interval);
-  }
-
-  runStep(0);
+  const x = 0;
+  const y = start;
+  callback([x, y]);
+  i++;
 }
