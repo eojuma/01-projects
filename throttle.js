@@ -20,13 +20,8 @@ function opThrottle(func, wait, options = {}) {
   let savedThis = null;
   let lastExecutedTime = 0;
 
-  let leading = true;
-  let trailing = false;
-
-  if ('leading' in options || 'trailing' in options) {
-    leading = !!options.leading;
-    trailing = !!options.trailing;
-  }
+  let leading = 'leading' in options ? !!options.leading : false;
+  let trailing = 'trailing' in options ? !!options.trailing : false;
 
   const timerExpired = () => {
     const now = Date.now();
@@ -57,8 +52,10 @@ function opThrottle(func, wait, options = {}) {
         lastExecutedTime = now;
         func.apply(this, args);
       } else {
-        savedArgs = args;
-        savedThis = this;
+        if (trailing) {
+          savedArgs = args;
+          savedThis = this;
+        }
       }
       timeoutId = setTimeout(timerExpired, wait);
     } else {
