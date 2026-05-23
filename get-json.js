@@ -1,17 +1,22 @@
 async function getJSON(path, params) {
   let url = path;
   if (params && Object.keys(params).length > 0) {
-    const queryString = new URLSearchParams(params).toString();
+    let queryString = new URLSearchParams(params).toString();
+    
+    queryString = queryString.replace(/\+/g, '%20');
+    
     url += (path.includes('?') ? '&' : '?') + queryString;
   }
 
   const response = await fetch(url);
 
-  if (response && response.ok === false) {
+  if (response && typeof response === 'object' && 'ok' in response && response.ok === false) {
     throw new Error(response.statusText || 'HTTP error');
   }
 
-  const json = typeof response.json === 'function' ? await response.json() : response;
+  const json = response && typeof response.json === 'function' 
+    ? await response.json() 
+    : response;
 
   if (json && typeof json === 'object') {
     if ('error' in json) {
