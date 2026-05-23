@@ -1,17 +1,38 @@
 function all(obj) {
-  if (!obj || typeof obj !== 'object') {
-    return Promise.resolve({});
-  }
+  return new Promise((resolve, reject) => {
+    if (!obj || typeof obj !== 'object') {
+      return resolve({});
+    }
 
-  const entries = Object.entries(obj);
+    const entries = Object.entries(obj);
+    const totalCount = entries.length;
 
-  const promises = entries.map(([key, value]) => {
-    return Promise.resolve(value).then((resolvedValue) => {
-      return [key, resolvedValue];
+    if (totalCount === 0) {
+      return resolve({});
+    }
+
+    const resultObject = {};
+    let resolvedCount = 0;
+    let hasFailed = false;
+
+    entries.forEach(([key, value]) => {
+      Promise.resolve(value)
+        .then((resolvedValue) => {
+          if (hasFailed) return;
+
+          resultObject[key] = resolvedValue;
+          resolvedCount++;
+
+          if (resolvedCount === totalCount) {
+            resolve(resultObject);
+          }
+        })
+        .catch((error) => {
+          if (!hasFailed) {
+            hasFailed = true;
+            reject(error);
+          }
+        });
     });
-  });
-
-  return Promise.all(promises).then((resolvedEntries) => {
-    return Object.fromEntries(resolvedEntries);
   });
 }
