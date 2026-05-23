@@ -2,14 +2,18 @@ function interpolation({ step, start, end, duration, callback }) {
   const interval = duration / step;
   const range = end - start;
 
-  for (let i = 0; i < step; i++) {
+  function runStep(i) {
+    if (i >= step) return;
+
     const x = i / step;
     const y = start + x * range;
 
-    const executionDelay = i * interval;
+    callback([x, y]);
 
     setTimeout(() => {
-      callback([x, y]);
-    }, executionDelay);
+      runStep(i + 1);
+    }, interval);
   }
+
+  runStep(0);
 }
