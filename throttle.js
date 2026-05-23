@@ -22,8 +22,8 @@ function opThrottle(func, wait, options = {}) {
   let savedThis = null;
   let lastExecutedTime = 0;
 
-  const leading = options.leading !== false;
-  const trailing = options.trailing !== false;
+const trailing = options.trailing !== false;
+const leading = 'leading' in options ? !!options.leading : !options.trailing;
 
   const invokeFunc = (time) => {
     lastExecutedTime = time;
