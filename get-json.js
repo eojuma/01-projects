@@ -8,15 +8,20 @@ async function getJSON(path, params) {
   const response = await fetch(url);
 
   if (response && response.ok === false) {
-    throw new Error(response.statusText);
+    throw new Error(response.statusText || 'HTTP error');
   }
 
-  const json = response && typeof response.json === 'function' 
-    ? await response.json() 
-    : response;
+  let json;
+  try {
+    json = response && typeof response.json === 'function' 
+      ? await response.json() 
+      : response;
+  } catch (e) {
+    json = response;
+  }
 
   if (json && typeof json === 'object') {
-    if ('error' in json) {
+    if ('error' in json && typeof json.error === 'string') {
       throw new Error(json.error);
     }
     if ('data' in json) {
