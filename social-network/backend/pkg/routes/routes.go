@@ -13,7 +13,7 @@ import (
 func SetupRoutes(mux *http.ServeMux, db *sql.DB, authHandler *handlers.AuthHandler, groupHandler *handlers.GroupHandler, profileHandler http.HandlerFunc, followHandler *handlers.FollowHandler, postHandler *handlers.PostHandler) {
 
 	// Root endpoint
-	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{
