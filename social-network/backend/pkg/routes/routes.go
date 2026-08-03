@@ -11,6 +11,26 @@ import (
 
 // SetupRoutes registers application routes on the provided mux.
 func SetupRoutes(mux *http.ServeMux, db *sql.DB, authHandler *handlers.AuthHandler, groupHandler *handlers.GroupHandler, profileHandler http.HandlerFunc, followHandler *handlers.FollowHandler, postHandler *handlers.PostHandler) {
+
+	// Root endpoint
+	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{
+			"message":"Social Network API is running",
+			"status":"ok"
+		}`))
+	})
+
+	// Health check endpoint
+	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{
+			"status":"ok"
+		}`))
+	})
+
 	mux.HandleFunc("/api/auth/register", authHandler.Register)
 	mux.HandleFunc("/api/auth/login", authHandler.Login)
 	mux.HandleFunc("/api/auth/logout", authHandler.Logout)
@@ -49,15 +69,18 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, authHandler *handlers.AuthHandl
 
 	// Group post feed
 	mux.HandleFunc("GET /api/groups/{groupID}/posts", groupHandler.GetGroupFeed)
+
 	// Group comments
 	mux.HandleFunc("POST /api/groups/{groupID}/posts/{postID}/comments", groupHandler.CreateGroupComment)
 	mux.HandleFunc("GET /api/groups/{groupID}/posts/{postID}/comments", groupHandler.GetGroupComments)
+
 	// Group Events
 	mux.HandleFunc("POST /api/groups/{groupID}/events", groupHandler.CreateEvent)
 	mux.HandleFunc("GET /api/groups/{groupID}/events", groupHandler.GetEvents)
 	mux.HandleFunc("POST /api/events/{eventID}/respond", groupHandler.RespondToEvent)
 	mux.HandleFunc("GET /api/groups/{groupID}/messages", handlers.GetGroupMessagesHandler(db))
 
+	// User endpoints
 	mux.HandleFunc("GET /api/users", handlers.SearchUsersHandler(db))
 	mux.HandleFunc("GET /api/users/{username}", func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.WithValue(r.Context(), "mux.vars", map[string]string{
@@ -66,13 +89,14 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, authHandler *handlers.AuthHandl
 		profileHandler.ServeHTTP(w, r.WithContext(ctx))
 	})
 
-	// Profile update + privacy toggle (authenticated user only)
+	// Profile update + privacy toggle
 	mux.HandleFunc("PATCH /api/users/{id}/profile", func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.WithValue(r.Context(), "mux.vars", map[string]string{
 			"id": r.PathValue("id"),
 		})
 		handlers.UpdateProfileHandler(db).ServeHTTP(w, r.WithContext(ctx))
 	})
+
 	mux.HandleFunc("PATCH /api/users/{id}/privacy", func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.WithValue(r.Context(), "mux.vars", map[string]string{
 			"id": r.PathValue("id"),
@@ -80,7 +104,7 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, authHandler *handlers.AuthHandl
 		handlers.UpdatePrivacyHandler(db).ServeHTTP(w, r.WithContext(ctx))
 	})
 
-	// websocket endpoint
+	// WebSocket endpoint
 	mux.HandleFunc("/ws", websocket.ServeWebSocket)
 
 	// Follow endpoints
