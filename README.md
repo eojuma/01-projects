@@ -6,6 +6,7 @@
 
 ## About
 
+
 This repository serves as my engineering portfolio, bringing together the projects I built throughout the Zone01 curriculum.
 
 The projects cover a broad range of software engineering topics including:
