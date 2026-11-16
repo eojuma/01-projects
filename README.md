@@ -256,7 +256,6 @@ Beginning with command-line applications and algorithmic challenges, I gradually
 Each project reinforced software engineering principles such as clean code, modular design, testing, debugging, and iterative problem solving.
 
 ---
-
 # Future Improvements
 
 As I continue growing as a backend engineer, I plan to:
